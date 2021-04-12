@@ -112,5 +112,5 @@ return [
     */
 
     'password_timeout' => 10800,
-
+    'token' => env('KEY_TOKEN'),
 ];
