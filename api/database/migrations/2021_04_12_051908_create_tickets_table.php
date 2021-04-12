@@ -15,11 +15,14 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('event');
-            $table->string('charge');
+            $table->string('event',100);
+            $table->integer('charge');
+            $table->timestamp('event_date');
+            $table->boolean('available');
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('buyer_id')->nullable();
+            $table->foreignId('created_by')->constrained('users');
         });
     }
 
