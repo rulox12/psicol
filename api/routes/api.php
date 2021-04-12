@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\BuyerController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,5 +20,13 @@ Route::post('auth/register', [AuthController::class, 'register'])->name('auth.re
 Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
 
 Route::middleware('auth:api')->group(function () {
-    return Route::resource('buyer', \App\Http\Controllers\BuyerController::class);
+
+    //Routes buyer
+    Route::get('buyer', [BuyerController::class, 'all']);
+    Route::post('buyer', [BuyerController::class, 'store']);
+
+    //Routes ticket
+    Route::get('ticket', [TicketController::class, 'all']);
+    Route::post('ticket', [TicketController::class, 'store']);
+
 });
