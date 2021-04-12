@@ -9,6 +9,10 @@ use Laravel\Passport\HasApiTokens;
 
 /**
  * @method static create(array $validate)
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
  */
 class User extends Authenticatable
 {
