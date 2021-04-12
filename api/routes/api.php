@@ -18,6 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('auth/register', [AuthController::class, 'register'])->name('auth.register');
 Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    return Route::resource('buyer', \App\Http\Controllers\BuyerController::class);
 });
