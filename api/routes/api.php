@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PassportAuthController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register', [PassportAuthController::class, 'register']);
-Route::post('login', [PassportAuthController::class, 'login']);
+Route::post('auth/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
