@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\BuyerController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('auth/register', [AuthController::class, 'register'])->name('auth.register');
 Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+
+    //Routes buyer
+    Route::get('buyer', [BuyerController::class, 'all']);
+    Route::post('buyer', [BuyerController::class, 'store']);
+
+    //Routes ticket
+    Route::get('ticket', [TicketController::class, 'all']);
+    Route::post('ticket', [TicketController::class, 'store']);
+
 });
