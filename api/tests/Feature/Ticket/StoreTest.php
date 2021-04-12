@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature\Buyer;
+namespace Tests\Feature\Ticket;
 
-use App\Models\Buyer;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -14,32 +14,34 @@ class StoreTest extends TestCase
     use WithFaker;
 
     /** @test * */
-    public function aUserNotLoggedInCannotRegisterBuyers()
+    public function aUserNotLoggedInCannotRegisterTickets()
     {
-        $this->postJson('api/buyer')
+        $this->postJson('api/ticket')
             ->assertStatus(401)
             ->assertJson(['message' => 'Unauthenticated.']);
     }
 
     /** @test * */
-    public function aLoggedInUserCanRegisterBuyer()
+    public function aLoggedInUserCanRegisterTicket()
     {
         $user = User::factory()->create();
-        $buyerData = Buyer::factory()->make();
+        $ticketData = Ticket::factory()->make();
+
+        $ticketData->makeHidden('created_by');
 
         $expectedResponse = [
             'success' => true,
-            'data' => $buyerData->toArray(),
+            'data' => $ticketData->toArray(),
             'message' => ''
         ];
 
-        $this->actingAs($user, 'api')->postJson('api/buyer', $buyerData->toArray())
+        $this->actingAs($user, 'api')->postJson('api/ticket', $ticketData->toArray())
             ->assertStatus(200)
             ->assertJson($expectedResponse);
     }
 
     /** @test * */
-    public function aLoggedInUserCannotRegisterABuyerWithoutASurnameAndMobile()
+    public function aLoggedInUserCannotRegisterATicketWithoutEvent()
     {
         $user = User::factory()->create();
         $expectedResponse = [
