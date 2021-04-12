@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 trait HasBuyerScopes
 {
-    public function scopeForIndex(Builder $query): Builder
+    public function scopeForAll(Builder $query): Builder
     {
         return $query->where('created_by' ,  Auth::user()->id);
     }

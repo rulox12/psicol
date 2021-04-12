@@ -10,9 +10,9 @@ use Illuminate\Http\JsonResponse;
 
 class BuyerController extends BaseController
 {
-    public function index(): JsonResponse
+    public function all(): JsonResponse
     {
-        $buyers = Buyer::forIndex()->paginate();
+        $buyers = Buyer::forAll()->paginate();
 
         return $this->successResponse(BuyerResource::collection($buyers));
     }
