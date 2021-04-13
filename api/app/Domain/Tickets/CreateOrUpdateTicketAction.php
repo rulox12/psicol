@@ -22,4 +22,23 @@ class CreateOrUpdateTicketAction
 
         return $ticket;
     }
+
+    public static function toggle($ticketId)
+    {
+        $ticket = Ticket::find($ticketId);
+
+        $ticket->available = !$ticket->available;
+
+        $ticket->save();
+    }
+
+    public static function assignBuyer(string $ticketId, string $buyerId)
+    {
+        $ticket = Ticket::find($ticketId);
+        $ticket->buyer_id = $buyerId;
+
+        $ticket->save();
+
+        return $ticket;
+    }
 }
