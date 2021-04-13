@@ -28,5 +28,7 @@ Route::middleware('auth:api')->group(function () {
     //Routes ticket
     Route::get('ticket', [TicketController::class, 'all']);
     Route::post('ticket', [TicketController::class, 'store']);
-
+    Route::get('ticket/toggle/{id}', [TicketController::class, 'toggle']);
+    Route::get('ticket/available/{available}', [TicketController::class, 'filterAvailable']);
+    Route::put('ticket/assign/{tickedId}/{buyerId}', [TicketController::class, 'assignBuyer']);
 });

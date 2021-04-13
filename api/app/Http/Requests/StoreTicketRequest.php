@@ -17,7 +17,7 @@ class StoreTicketRequest extends FormRequest
             'event' => 'bail|required|max:30',
             'charge' => 'bail|required|numeric',
             'event_date' => 'bail|required|date',
-            'buyer_id' => 'bail|required|exists:App\Models\Buyer,id',
+            'buyer_id' => 'bail|exists:App\Models\Buyer,id',
         ];
     }
 }

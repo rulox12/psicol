@@ -17,13 +17,13 @@ class RegisterTest extends TestCase
             'message' => 'The given data was invalid.',
             'errors' => [
                 'name' => [
-                    'The name field is required.'
+                    trans('validation.required',['attribute' => 'name'])
                 ],
                 'email' => [
-                    'The email field is required.'
+                    trans('validation.required',['attribute' => 'email'])
                 ],
                 'password' => [
-                    'The password field is required.'
+                    trans('validation.required',['attribute' => 'password'])
                 ]
             ]
         ];
@@ -40,7 +40,7 @@ class RegisterTest extends TestCase
             'message' => 'The given data was invalid.',
             'errors' => [
                 'email' => [
-                    'The email field is required.'
+                    trans('validation.required',['attribute' => 'email'])
                 ],
             ]
         ];
@@ -62,7 +62,7 @@ class RegisterTest extends TestCase
             'message' => 'The given data was invalid.',
             'errors' => [
                 'password' => [
-                    'The password field is required.'
+                    trans('validation.required',['attribute' => 'password'])
                 ],
             ]
         ];
@@ -84,7 +84,7 @@ class RegisterTest extends TestCase
             'message' => 'The given data was invalid.',
             'errors' => [
                 'name' => [
-                    'The name field is required.'
+                    trans('validation.required',['attribute' => 'name'])
                 ],
             ]
         ];
