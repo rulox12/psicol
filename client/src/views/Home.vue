@@ -2,23 +2,20 @@
   <div class="home">
     <div class="wrapper fadeInDown">
       <div id="formContent">
-        <!-- Tabs Titles -->
 
-        <!-- Icon -->
         <div class="fadeIn first">
           <img src="https://psicol.co/wp-content/uploads/2018/07/slogan-psicol-1.png" id="icon" alt="User Icon"/>
         </div>
 
-        <!-- Login Form -->
-        <form>
-          <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-          <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-          <input type="submit" class="fadeIn fourth" value="Log In">
+        <form v-on:submit.prevent="login">
+          <input type="email" id="login" class="fadeIn second" name="login" placeholder="Correo" v-model="email">
+          <input type="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña"
+                 v-model="password">
+          <input type="submit" class="fadeIn fourth" value="Ingresar">
         </form>
 
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-          <a class="underlineHover" href="#">Forgot Password?</a>
+        <div class="alert alert-danger" role="alert" v-if="error">
+          {{ this.error_message }}
         </div>
 
       </div>
@@ -28,10 +25,33 @@
 
 <script>
 // @ is an alias to /src
+import axios from 'axios';
 
 export default {
   name: 'Home',
-  components: {}
+  components: {},
+  data: function () {
+    return {
+      email: '',
+      password: '',
+      error: false,
+      error_message: ''
+    }
+  },
+  methods: {
+    login() {
+      axios.post('http://api.test/api/auth/login', {
+        'email': this.email,
+        'password': this.password,
+      }).then(response => {
+        localStorage.token = response.data.token;
+        this.$router.push('buyers')
+      }).catch(() => {
+        this.error = true;
+        this.error_message = 'No se pudo identificar el usuario';
+      })
+    }
+  }
 }
 </script>
 
@@ -150,7 +170,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active {
   transform: scale(0.95);
 }
 
-input[type=text] {
+input[type=text],input[type=email],input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -171,7 +191,7 @@ input[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type=text]:focus,input[type=email]:focus,input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
