@@ -16,7 +16,7 @@ class ListTest extends TestCase
     public function aUserNotLoggedInCannotSeeTheTicket()
     {
         $this
-            ->getJson('api/ticket')
+            ->getJson('api/ticket/1')
             ->assertStatus(401)
             ->assertJson(['message' => 'Unauthenticated.']);
     }
@@ -39,7 +39,7 @@ class ListTest extends TestCase
 
         $this
             ->actingAs($user, 'api')
-            ->getJson('api/ticket')
+            ->getJson('api/ticket/1')
             ->assertStatus(200)
             ->assertJson($expectedResponse);
     }
@@ -58,7 +58,7 @@ class ListTest extends TestCase
 
         $this
             ->actingAs($user, 'api')
-            ->getJson('api/ticket')
+            ->getJson('api/ticket/1')
             ->assertStatus(200)
             ->assertJson($expectedResponse);
     }

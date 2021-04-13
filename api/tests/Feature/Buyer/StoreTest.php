@@ -46,10 +46,10 @@ class StoreTest extends TestCase
             'message' => 'The given data was invalid.',
             'errors' => [
                 'surname' => [
-                    'The surname field is required.'
+                    trans('validation.required',['attribute' => 'surname'])
                 ],
                 'mobile' => [
-                    'The mobile field is required.'
+                    trans('validation.required',['attribute' => 'mobile'])
                 ],
             ]
         ];

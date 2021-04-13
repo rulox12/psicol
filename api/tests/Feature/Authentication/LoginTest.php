@@ -18,10 +18,10 @@ class LoginTest extends TestCase
             'message' => 'The given data was invalid.',
             'errors' => [
                 'email' => [
-                    'The email field is required.'
+                    trans('validation.required',['attribute' => 'email'])
                 ],
                 'password' => [
-                    'The password field is required.'
+                    trans('validation.required',['attribute' => 'password'])
                 ]
             ]
         ];
@@ -38,7 +38,7 @@ class LoginTest extends TestCase
             'message' => 'The given data was invalid.',
             'errors' => [
                 'email' => [
-                    'The email field is required.'
+                    trans('validation.required',['attribute' => 'email'])
                 ]
             ]
         ];
@@ -55,7 +55,7 @@ class LoginTest extends TestCase
             'message' => 'The given data was invalid.',
             'errors' => [
                 'password' => [
-                    'The password field is required.'
+                    trans('validation.required',['attribute' => 'password'])
                 ]
             ]
         ];
