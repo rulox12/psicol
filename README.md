@@ -12,8 +12,7 @@ php artisan key:generate
 php artisan serve
 nano .env
 ```
-Configure the .env file
-Add the following variables
+Configure the .env file, add the following variables
 ```
 KEY_TOKEN=PSICOL_TOKEN
 EMAIL=email@example.com
@@ -28,14 +27,12 @@ php artisan command:configuration
 
 To configure the project for the first time
 
-Configure the .env file
-
 ```
 cd client
 npm install
+nano .env
 ```
 
-Configure the .env file
 Add the following variable
 
 ```
