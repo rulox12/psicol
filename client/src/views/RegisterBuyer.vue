@@ -2,6 +2,9 @@
   <div>
     <Header/>
     <div class="container">
+      <div class="alert alert-danger" role="alert" v-if="error">
+        {{ this.error_message }}
+      </div>
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
 
         <b-form-group id="input-group-2" label="Nombre:" label-for="input-2">
@@ -41,18 +44,18 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Submit</b-button>
-        <b-button type="reset" variant="danger">Reset</b-button>
+        <b-button type="submit" variant="primary">Crear</b-button>
+        <b-button type="reset" variant="danger">Reset
+          <Formulario></Formulario>
+        </b-button>
       </b-form>
-      <b-card class="mt-3" header="Form Data Result">
-        <pre class="m-0">{{ form }}</pre>
-      </b-card>
     </div>
   </div>
 </template>
 <script>
 
 import Header from '@/components/Header.vue'
+import axios from "axios";
 
 export default {
   name: 'RegisterBuyer',
@@ -67,22 +70,37 @@ export default {
         surname: '',
         mobile: ''
       },
-      show: true
+      show: true,
+      error: false,
+      error_message: true
     }
   },
   methods: {
     onSubmit(event) {
       event.preventDefault()
-      alert(JSON.stringify(this.form))
+      console.log(this.form);
+      axios.post(process.env.VUE_APP_URL + 'buyer', this.form, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        }
+      }).then(response => {
+        this.buyers = response.data.data
+        this.$router.push('/buyers/')
+        this.onReset()
+        // eslint-disable-next-line no-unused-vars
+      }).catch(error => {
+        this.error = true;
+        this.error_message = 'No se pudo registrar el comprador';
+      })
     },
     onReset(event) {
       event.preventDefault()
-      // Reset our form values
+
       this.form.email = ''
       this.form.name = ''
       this.form.surname = ''
-      this.form.mobile = []
-      // Trick to reset/clear native browser form validation state
+      this.form.mobile = ''
+
       this.show = false
       this.$nextTick(() => {
         this.show = true

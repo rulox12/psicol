@@ -35,12 +35,14 @@ export default {
       email: '',
       password: '',
       error: false,
-      error_message: ''
+      error_message: '',
+      url: process.env.VUE_APP_URL
     }
   },
   methods: {
     login() {
-      axios.post('http://api.test/api/auth/login', {
+      console.log(this.url)
+      axios.post(process.env.VUE_APP_URL + 'auth/login', {
         'email': this.email,
         'password': this.password,
       }).then(response => {
@@ -170,7 +172,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active {
   transform: scale(0.95);
 }
 
-input[type=text],input[type=email],input[type=password] {
+input[type=text], input[type=email], input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -191,7 +193,7 @@ input[type=text],input[type=email],input[type=password] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus,input[type=email]:focus,input[type=password]:focus {
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
