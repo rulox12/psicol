@@ -43,27 +43,27 @@
             <b-button variant="info" @click="setBuyerSelect(buyer.id)" v-b-modal.modal-prevent-closing>
               Añadir boleto
             </b-button>
-            <b-modal
-                id="modal-prevent-closing"
-                ref="modal"
-                title="Selecciona el boleto"
-                @ok="handleOk"
-            >
-              <form ref="form" @submit.stop.prevent="handleSubmit">
-                <b-form-select
-                    label="Ticket"
-                    v-model="ticketSelected"
-                    value-field="id"
-                    text-field="event"
-                    :select-size="4"
-                    :options="tickets">
-                </b-form-select>
-              </form>
-            </b-modal>
           </td>
         </tr>
         </tbody>
       </table>
+      <b-modal
+          id="modal-prevent-closing"
+          ref="modal"
+          title="Selecciona el boleto"
+          @ok="handleOk"
+      >
+        <form ref="form" @submit.stop.prevent="handleSubmit">
+          <b-form-select
+              label="Ticket"
+              v-model="ticketSelected"
+              value-field="id"
+              text-field="event"
+              :select-size="4"
+              :options="tickets">
+          </b-form-select>
+        </form>
+      </b-modal>
     </div>
   </div>
 </template>
@@ -91,14 +91,14 @@ export default {
     Header,
   },
   mounted() {
-    axios.get('http://api.test/api/buyer', {
+    axios.get(process.env.VUE_APP_URL + 'buyer', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }
     }).then(response => {
       this.buyers = response.data.data;
     })
-    axios.get('http://api.test/api/ticket/available/1', {
+    axios.get(process.env.VUE_APP_URL + 'ticket/available/1', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }
@@ -111,14 +111,11 @@ export default {
   },
   methods: {
     handleOk(bvModalEvt) {
-      // Prevent modal from closing
       bvModalEvt.preventDefault()
-      // Trigger submit handler
       this.handleSubmit()
     },
     handleSubmit() {
-      console.log(this.ticketSelected);
-      axios.put(`http://api.test/api/ticket/assign/${this.ticketSelected}/${this.buyerSelected}`, '', {
+      axios.put(`${process.env.VUE_APP_URL}ticket/assign/${this.ticketSelected}/${this.buyerSelected}`, '', {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         }
@@ -130,7 +127,8 @@ export default {
 
         // eslint-disable-next-line no-unused-vars
       }).catch(error => {
-        console.log(error)
+        this.message = 'No se pudo asignar el boleto'
+        this.showAlert();
       })
       this.$nextTick(() => {
         this.$bvModal.hide('modal-prevent-closing')

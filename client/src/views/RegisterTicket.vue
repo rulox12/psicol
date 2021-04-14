@@ -2,44 +2,34 @@
   <div>
     <Header/>
     <div class="container">
-      <div class="alert alert-danger" role="alert" v-if="error">
-        {{ this.error_message }}
-      </div>
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
 
-        <b-form-group id="input-group-2" label="Nombre:" label-for="input-2">
+        <b-form-group id="input-group-2" label="Evento:" label-for="input-2">
           <b-form-input
               id="input-2"
-              v-model="form.name"
+              v-model="form.event"
               required
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="input-group-2" label="Apellido:" label-for="input-2">
+        <b-form-group id="input-group-2" label="Costo:" label-for="input-2">
           <b-form-input
               id="input-2"
-              v-model="form.surname"
+              v-model="form.charge"
+              type="number"
               required
           ></b-form-input>
         </b-form-group>
 
         <b-form-group
             id="input-group-1"
-            label="Correo:"
+            label="Fecha de evento:"
             label-for="input-1"
         >
           <b-form-input
               id="input-1"
-              v-model="form.email"
-              type="email"
-              required
-          ></b-form-input>
-        </b-form-group>
-
-        <b-form-group id="input-group-3" label="Celular:" label-for="input-3">
-          <b-form-input
-              id="input-1"
-              v-model="form.mobile"
+              v-model="form.event_date"
+              type="date"
               required
           ></b-form-input>
         </b-form-group>
@@ -58,48 +48,38 @@ import Header from '@/components/Header.vue'
 import axios from "axios";
 
 export default {
-  name: 'RegisterBuyer',
+  name: 'RegisterTicket',
   components: {
     Header,
   },
   data() {
     return {
       form: {
-        email: '',
-        name: '',
-        surname: '',
-        mobile: ''
+        event: '',
+        charge: '',
+        event_date: ''
       },
-      show: true,
-      error: false,
-      error_message: true
+      show: true
     }
   },
   methods: {
     onSubmit(event) {
       event.preventDefault()
-      console.log(this.form);
-      axios.post(process.env.VUE_APP_URL + 'buyer', this.form, {
+      axios.post(process.env.VUE_APP_URL + 'ticket', this.form, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         }
-      }).then(response => {
-        this.buyers = response.data.data
-        this.$router.push('/buyers/')
-        this.onReset()
         // eslint-disable-next-line no-unused-vars
-      }).catch(error => {
-        this.error = true;
-        this.error_message = 'No se pudo registrar el comprador';
+      }).then(response => {
+        this.$router.push('/tickets/')
+        this.onReset()
       })
     },
     onReset(event) {
       event.preventDefault()
-
-      this.form.email = ''
-      this.form.name = ''
-      this.form.surname = ''
-      this.form.mobile = ''
+      this.form.event = ''
+      this.form.event_date = ''
+      this.form.charge = ''
 
       this.show = false
       this.$nextTick(() => {
