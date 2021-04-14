@@ -2,6 +2,10 @@
   <div>
     <Header/>
     <div class="container">
+      <br/>
+      <b-button variant="secondary" :href="'/register_ticket/'">Crear nuevo</b-button>
+      <br/>
+      <br/>
       <table class="table table-hover">
         <thead>
         <tr>
@@ -53,7 +57,7 @@ export default {
     Header,
   },
   mounted() {
-    axios.get('http://api.test/api/ticket', {
+    axios.get(process.env.VUE_APP_URL + 'ticket', {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }
@@ -66,7 +70,7 @@ export default {
   },
   methods: {
     toggle(ticketId) {
-      axios.get('http://api.test/api/ticket/toggle/' + ticketId, {
+      axios.get(process.env.VUE_APP_URL + 'ticket/toggle/' + ticketId, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         }
