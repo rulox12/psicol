@@ -5,29 +5,43 @@ Ticket office project
 
 To configure the project for the first time
 
-Once you have the database created and configured in the .env file
 ```
 cd api
 composer install
 php artisan key:generate
-php artisan migrate:refresh --seed
 php artisan serve
-php artisan passport:install
-php artisan serve
+nano .env
 ```
-The following field must be added to the .env file: KEY_TOKEN=PSICOL_TOKEN
-
+Configure the .env file
+Add the following variables
+```
+KEY_TOKEN=PSICOL_TOKEN
+EMAIL=email@example.com
+PASSWORD=password
+```
+Run the following custom command
+```
+php artisan command:configuration
+```
 
 ## Client Configuration
 
 To configure the project for the first time
 
-Once you have the database created and configured in the .env file
+Configure the .env file
+
 ```
 cd client
-composer install
-php artisan key:generate
-php artisan migrate:refresh --seed
-php artisan serve
-php artisan passport:install
+npm install
+```
+
+Configure the .env file
+Add the following variable
+
+```
+VUE_APP_URL=http://127.0.0.1:8000/api/
+```
+Run the following custom command
+```
+npm run serve
 ```
