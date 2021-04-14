@@ -13,7 +13,6 @@ class CreateOrUpdateTicketAction
         $ticket->event = $request->input('event');
         $ticket->charge = $request->input('charge');
         $ticket->event_date = $request->input('event_date');
-        $ticket->available = $request->input('available');
         $ticket->buyer_id = $request->input('buyer_id');
         $ticket->available = true;
         $ticket->created_by = Auth::user()->id;
